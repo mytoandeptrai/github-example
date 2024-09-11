@@ -1,34 +1,36 @@
 import React from "react";
 import TodoItem from "./TodoItem";
+import { useSelector } from "react-redux";
 
 export type TodoItemProps = {
-   id: number;
-   title: string;
-   completed: boolean;
+  id: number;
+  title: string;
+  completed: boolean;
 };
 
-type Props = {
-   todoList: TodoItemProps[];
-   onCompleteChange: (todo: TodoItemProps) => void;
-};
+type Props = {};
 
-const TodoList = ({ todoList, onCompleteChange }: Props) => {
-   /** Cách 1: if else bình thường */
-   if (todoList.length === 0) {
-      return <div>There is no todo</div>;
-   }
+const TodoList = () => {
+  const todoList: TodoItemProps[] = useSelector((state: any) => {
+    return state.todoState.todoList;
+  });
 
-   return (
-      <div>
-         {todoList.map((todo) => (
-            <TodoItem
-               key={todo.id}
-               todoItem={todo}
-               onCompleteChange={onCompleteChange}
-            />
-         ))}
-      </div>
-   );
+  /** Cách 1: if else bình thường */
+  if (todoList.length === 0) {
+    return <div>There is no todo</div>;
+  }
+
+  return (
+    <div>
+      {todoList.map((todo) => (
+        <TodoItem
+          key={todo.id}
+          todoItem={todo}
+          
+        />
+      ))}
+    </div>
+  );
 };
 
 export default TodoList;

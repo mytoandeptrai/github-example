@@ -10,8 +10,6 @@ axiosClient.interceptors.request.use(
    function (config) {
       // Làm gì đó trước khi request dược gửi đi
 
-      config.headers.custom = "12345";
-
       return config;
    },
    function (error) {
