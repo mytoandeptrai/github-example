@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
 import { Student } from "../store/student/student-reducer";
 import {
    deleteStudent,
@@ -8,8 +7,10 @@ import {
 } from "../store/student/student-action";
 
 const StudentList: React.FC = () => {
-   const students = useSelector((state: RootState) => state.students.students);
+   const students: any[] = [];
    const dispatch = useDispatch();
+
+   if (students.length === 0) return null;
 
    return (
       <table>

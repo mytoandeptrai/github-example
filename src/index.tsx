@@ -4,16 +4,18 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import store from "./store/store";
+import store from "./store-toolkit/store";
+// import store from "./store/store";
 
 const root = ReactDOM.createRoot(
    document.getElementById("root") as HTMLElement
 );
+/* Luôn luôn bọc provider khi sử dụng redux / redux toolkit:
+Trong provider: sẽ gồm store => store mà mình vừa mới tạo
+  */
+
 root.render(
    <Provider store={store}>
-      {/* Luôn luôn bọc provider khi sử dụng redux:
-      Trong provider: sẽ gồm store => store mà mình vừa mới tạo
-        */}
       <App />
    </Provider>
 );

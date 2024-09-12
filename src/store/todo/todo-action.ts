@@ -1,6 +1,5 @@
 import axiosClient from "../../api/axiosClient";
 import { TodoItemProps } from "../../components/TodoList";
-import { AppThunkDispatch } from "../store";
 import {
    TODO_ACTION_ADD_DATA,
    TODO_ACTION_ADD_PAGE,

@@ -1,39 +1,43 @@
 import { useDispatch, useSelector } from "react-redux";
-import { TODO_ACTION_ADD_PAGE } from "../store/todo/todo-type";
-import { createTodo } from "../store/todo/todo-action";
+import { decrement, increment } from "../store-toolkit/slices/counter-slice";
+import { addPage, fetchTodoToolkit } from "../store-toolkit/slices/todo-slice";
 
 const Pagination = () => {
    const dispatch = useDispatch();
    const page = useSelector((state: any) => {
       return state.todoState.page;
    });
+   const count = useSelector((state: any) => {
+      return state.counterState.count;
+   });
 
    const onPrevClick = () => {
       if (page === 1) return;
       const newPage = page - 1;
 
-      const action = {
-         type: TODO_ACTION_ADD_PAGE,
-         payload: newPage,
-      };
-
-      dispatch(action);
+      dispatch(addPage(newPage));
    };
 
    const onNextClick = () => {
       const newPage = page + 1;
 
-      const action = {
-         type: TODO_ACTION_ADD_PAGE,
-         payload: newPage,
-      };
-
-      dispatch(action);
+      dispatch(addPage(newPage));
    };
 
-   const onAddTodo = () => {
-      const payload = { title: "foo", body: "bar", userId: 1 };
-      dispatch(createTodo(payload));
+   const onIncrease = () => {
+      dispatch(increment(count + 1));
+   };
+
+   const onDecrease = () => {
+      dispatch(decrement());
+   };
+
+   const onGetTodo = () => {
+      const payload = {
+         page: 1,
+         value: "",
+      };
+      dispatch(fetchTodoToolkit(payload));
    };
 
    return (
@@ -45,9 +49,10 @@ const Pagination = () => {
       >
          <button onClick={onPrevClick}>Prev</button>
          <button onClick={onNextClick}>Next</button>
-         <button onClick={onAddTodo}>Thêm</button>
-         <button onClick={onNextClick}>Sửa</button>
-         <button onClick={onNextClick}>Xoá</button>
+         <p>{count}</p>
+         <button onClick={onIncrease}>Tăng</button>
+         <button onClick={onDecrease}>Giảm</button>
+         <button onClick={onGetTodo}>Gọi API</button>
       </div>
    );
 };

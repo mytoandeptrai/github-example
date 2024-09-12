@@ -4,7 +4,7 @@ import "./App.css";
 import Pagination from "./components/Pagination";
 import TodoList from "./components/TodoList";
 import TodoSearch from "./components/TodoSearch";
-import { fetchTodo } from "./store/todo/todo-action";
+import { fetchTodoToolkit } from "./store-toolkit/slices/todo-slice";
 
 function App() {
    const { page, value, loading } = useSelector((state: any) => {
@@ -15,7 +15,11 @@ function App() {
 
    useEffect(() => {
       // Xử lý gọi API trong này;
-      dispatch(fetchTodo(value, page));
+      const payload = {
+         page: page,
+         value: value,
+      };
+      dispatch(fetchTodoToolkit(payload));
    }, [dispatch, page, value]);
 
    return (
