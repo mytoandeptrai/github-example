@@ -1,56 +1,33 @@
-import { useEffect, useState } from "react";
-import "./App.css";
-import axiosClient from "./api/axiosClient";
-import Pagination from "./components/Pagination";
-import TodoList, { TodoItemProps } from "./components/TodoList";
-import TodoSearch from "./components/TodoSearch";
-import ReduxExample from "./components/ReduxExample";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addDataTodoReducer } from "./store/todo/todo-action";
-import { TODO_ACTION_ADD_DATA } from "./store/todo/todo-type";
+import "./App.css";
+import Pagination from "./components/Pagination";
+import TodoList from "./components/TodoList";
+import TodoSearch from "./components/TodoSearch";
+import { fetchTodo } from "./store/todo/todo-action";
 
 function App() {
-  const { page, value } = useSelector((state: any) => {
-    return state.todoState;
-  });
+   const { page, value, loading } = useSelector((state: any) => {
+      return state.todoState;
+   });
 
-  const dispatch = useDispatch();
+   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // Xử lý gọi API trong này;
-    const url = value ? `/todos?title=${value}` : `/todos?_page=${page}`;
-    const fetchTodos = async () => {
-      try {
-        const response: any[] = await axiosClient.get(url);
-        const action = {
-          type: TODO_ACTION_ADD_DATA,
-          payload: response,
-        };
-        dispatch(action);
-      } catch (error) {
-        const action = {
-          type: TODO_ACTION_ADD_DATA,
-          payload: [],
-        };
+   useEffect(() => {
+      // Xử lý gọi API trong này;
+      dispatch(fetchTodo(value, page));
+   }, [dispatch, page, value]);
 
-        dispatch(action);
-      }
-    };
+   return (
+      <div>
+         {/* <ReduxExample /> */}
+         <Pagination />
+         <TodoSearch />
 
-    fetchTodos();
-
-    return () => {};
-  }, [page, value]);
-
-  return (
-    <div className="App">
-      <ReduxExample />
-      <Pagination />
-      <TodoSearch />
-
-      <TodoList />
-    </div>
-  );
+         {loading ? <div>Loading....</div> : <TodoList />}
+         {/* <StudentPage /> */}
+      </div>
+   );
 }
 
 export default App;

@@ -7,17 +7,15 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    {/* Luôn luôn bọc provider khi sử dụng redux:
-    Trong provider: sẽ gồm store => store mà mình vừa mới tạo
-      */}
-    <Provider store={store}>
+   <Provider store={store}>
+      {/* Luôn luôn bọc provider khi sử dụng redux:
+      Trong provider: sẽ gồm store => store mà mình vừa mới tạo
+        */}
       <App />
-    </Provider>
-  </React.StrictMode>
+   </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
