@@ -1,35 +1,30 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Pagination from "./components/Pagination";
-import TodoList from "./components/TodoList";
-import TodoSearch from "./components/TodoSearch";
-import { fetchTodoToolkit } from "./store-toolkit/slices/todo-slice";
+import DashboardPage from "./pages/DashboardPage";
+import OrderPage from "./pages/OrderPage";
+import ProductPage from "./pages/ProductPage";
 
 function App() {
-   const { page, value, loading } = useSelector((state: any) => {
-      return state.todoState;
-   });
-
-   const dispatch = useDispatch();
-
-   useEffect(() => {
-      // Xử lý gọi API trong này;
-      const payload = {
-         page: page,
-         value: value,
-      };
-      dispatch(fetchTodoToolkit(payload));
-   }, [dispatch, page, value]);
-
    return (
       <div>
-         {/* <ReduxExample /> */}
-         <Pagination />
-         <TodoSearch />
-
-         {loading ? <div>Loading....</div> : <TodoList />}
-         {/* <StudentPage /> */}
+         <Routes>
+            <Route
+               path="/"
+               element={<DashboardPage />}
+            />
+            <Route
+               path="/orders"
+               element={<OrderPage />}
+            />
+            <Route
+               path="/products"
+               element={<ProductPage />}
+            />
+            <Route
+               path="*"
+               element={<h1>Page Not Found</h1>}
+            />
+         </Routes>
       </div>
    );
 }
