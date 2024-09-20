@@ -6,6 +6,8 @@ import React, {
    useState,
 } from "react";
 import RegisterForm from "../components/RegisterForm";
+import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 type Props = {};
 
@@ -20,6 +22,8 @@ type Props = {};
 const DashboardPage = (props: Props) => {
    const [count, setCount] = useState(0);
    const [name, setName] = useState("");
+
+   const navigate = useNavigate();
 
    const onClick = () => {
       setCount((previousCount) => previousCount + 1);
@@ -91,8 +95,19 @@ const DashboardPage = (props: Props) => {
       }
    }, []);
 
+   const onClickNavigate = () => {
+      navigate("/orders");
+   };
+
    return (
       <div>
+         <Helmet>
+            <title>My Dashboard Page</title>
+            <link
+               rel="canonical"
+               href="http://mysite.com/example"
+            />
+         </Helmet>
          {/* <input
             type="text"
             ref={inputRef}
@@ -118,7 +133,8 @@ const DashboardPage = (props: Props) => {
             object={object}
             onHandleChange={onHandleChange}
          /> */}
-         <RegisterForm />
+         {/* <RegisterForm /> */}
+         <button onClick={onClickNavigate}>Click</button>
       </div>
    );
 };

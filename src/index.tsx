@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./store-toolkit/store";
 import { BrowserRouter } from "react-router-dom";
+import ErrorBoundary from "./components/ErrorBoundary";
 // import store from "./store/store";
 
 const root = ReactDOM.createRoot(
@@ -18,7 +19,9 @@ Trong provider: sẽ gồm store => store mà mình vừa mới tạo
 root.render(
    <BrowserRouter>
       <Provider store={store}>
-         <App />
+         <ErrorBoundary>
+            <App />
+         </ErrorBoundary>
       </Provider>
    </BrowserRouter>
 );
