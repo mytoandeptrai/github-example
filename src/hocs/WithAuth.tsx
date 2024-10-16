@@ -8,7 +8,7 @@ const WithAuth = <P extends object>(Component: React.ComponentType<P>): React.FC
     const isAuthenticated = localStorage.getItem('authToken'); 
 
     if (!isAuthenticated) {
-      return <Navigate to="/" />;
+      return <Navigate to="/login" />;
     }
 
     return <Component {...props} />;
